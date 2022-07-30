@@ -4,6 +4,8 @@ const listItems = [];
 
 getData() //activates our async function
 
+filter.addEventListener('input', (e) => filterData(e.target.value))
+
 async function getData() {
     const res = await fetch('https://randomuser.me/api/?results=50')
 
@@ -18,7 +20,7 @@ async function getData() {
         listItems.push(li)
 
         li.innerHTML = `
-        <img src="${user.picture.large}" alt"${user.name.first}"
+        <img src="${user.picture.large}" alt"${user.name.first}"</img>
         <div class="user-info">
             <h4>${user.name.first} ${user.name.last}</h4>
             <p>${user.location.city}, ${user.location.country}"</p>
@@ -27,6 +29,17 @@ async function getData() {
     result.appendChild(li)
 
         console.log(user)
+    })
+}
+
+function filterData(searchTerm) {
+    console.log(searchTerm)
+    listItems.forEach(item => {
+        if(item.innerText.toLowerCase().includes(searchTerm.toLowerCase())) {
+            item.classList.remove('hide')
+        } else {
+            item.classList.add('hide')
+        }
     })
 }
 
